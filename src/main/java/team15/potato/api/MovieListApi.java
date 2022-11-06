@@ -23,7 +23,7 @@ public class MovieListApi {
     private final MovieRepository movieRepository;
 
     // 발급키
-    String key = "60dd3402d40b9f20acf20fe34fb41a1e";
+    String key = "f4a1f8683e73052acc1311dd6392e58c";
 
     public void movieList() {
         // api 요청 결과 저정할 변수

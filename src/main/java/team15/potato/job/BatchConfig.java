@@ -34,17 +34,27 @@ public class BatchConfig {
     @Bean
     public Job testJob() {
         return jobBuilderFactory.get("testJob")
-                .start(testStep())
+                .start(movieApi())
                 .build();
     }
 
     @Bean
     @JobScope
-    public Step testStep() {
-        return stepBuilderFactory.get("testStep")
+    public Step peopleApi() {
+        return stepBuilderFactory.get("peopleApi")
+                .tasklet((contribution, chunkContext) -> {
+                    peopleListApiService.insertPeople();
+                    return RepeatStatus.FINISHED;
+                })
+                .build();
+    }
+
+    @Bean
+    @JobScope
+    public Step movieApi() {
+        return stepBuilderFactory.get("movieApi")
                 .tasklet((contribution, chunkContext) -> {
                     movieListApiService.insertMovie();
-                    // peopleListApiService.insertPeople();
                     return RepeatStatus.FINISHED;
                 })
                 .build();
